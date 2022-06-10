@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -47,6 +48,7 @@ public class TopicosController {
         return new TopicoDTO(topico);
     }
 
+    @Transactional
     @PutMapping("/{id}")
     public ResponseEntity<TopicoDTO> atualizar(@PathVariable Long id,
                                                @RequestBody @Valid AtualizacaoTopico form) {
