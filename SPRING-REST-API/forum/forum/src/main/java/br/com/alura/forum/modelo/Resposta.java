@@ -1,8 +1,11 @@
 package br.com.alura.forum.modelo;
 
+import lombok.AllArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 @Entity
+@AllArgsConstructor
 public class Resposta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
