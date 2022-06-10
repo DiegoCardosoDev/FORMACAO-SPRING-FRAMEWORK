@@ -20,7 +20,7 @@ public class TopicoForm {
 
 
     public Topico converter(CursoRepository cursoRepository) {
-        Curso curso = cursoRepository.findByname(nomeCurso);
+        Curso curso = cursoRepository.findBynome(nomeCurso);
         return new Topico(titulo, mensagem, curso);
     }
 }

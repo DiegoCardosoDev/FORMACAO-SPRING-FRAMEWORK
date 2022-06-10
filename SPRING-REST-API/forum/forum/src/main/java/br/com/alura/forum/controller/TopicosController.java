@@ -6,12 +6,15 @@ import br.com.alura.forum.modelo.Topico;
 import br.com.alura.forum.repository.CursoRepository;
 import br.com.alura.forum.repository.TopicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/cursos")
+@RequestMapping(value = "/topicos")
 public class TopicosController {
 
     @Autowired
@@ -24,21 +27,19 @@ public class TopicosController {
         this.topicoRepository = topicoRepository;
     }
 
-    @GetMapping("/topicos")
-    public List<TopicoDTO> lista(String nomeCurso) {
-        if (nomeCurso == null) {
+    @GetMapping
+    public List<TopicoDTO> lista() {
             List<Topico> topicos = topicoRepository.findAll();
             return TopicoDTO.converter(topicos);
-        } else {
-            List<Topico> topicos = topicoRepository.findByname(nomeCurso);
-            return TopicoDTO.converter(topicos);
-        }
+
     }
 
-    @PostMapping(value = "/cadastrar")
-    public void cadastrar(@RequestBody TopicoForm topicoForm) {
+    @PostMapping
+    public ResponseEntity<TopicoDTO> cadastrar(@RequestBody TopicoForm topicoForm, UriComponentsBuilder uriBuilder) {
         Topico topico = topicoForm.converter(cursoRepository);
         topicoRepository.save(topico);
+        URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
+        return ResponseEntity.created(uri).body(new TopicoDTO(topico));
 
     }
 

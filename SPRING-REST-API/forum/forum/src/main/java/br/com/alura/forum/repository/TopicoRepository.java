@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface TopicoRepository extends JpaRepository<Topico, Long> {
 
-    List<Topico> findByname(String nameCurso);
 }
