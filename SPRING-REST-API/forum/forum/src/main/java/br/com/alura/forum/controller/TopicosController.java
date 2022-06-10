@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -23,19 +24,16 @@ public class TopicosController {
     private CursoRepository cursoRepository;
 
 
-    public TopicosController(TopicoRepository topicoRepository) {
-        this.topicoRepository = topicoRepository;
-    }
-
     @GetMapping
     public List<TopicoDTO> lista() {
-            List<Topico> topicos = topicoRepository.findAll();
-            return TopicoDTO.converter(topicos);
+        List<Topico> topicos = topicoRepository.findAll();
+        return TopicoDTO.converter(topicos);
 
     }
 
     @PostMapping
-    public ResponseEntity<TopicoDTO> cadastrar(@RequestBody TopicoForm topicoForm, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<TopicoDTO> cadastrar(@RequestBody  @Valid TopicoForm topicoForm,
+                                               UriComponentsBuilder uriBuilder) {
         Topico topico = topicoForm.converter(cursoRepository);
         topicoRepository.save(topico);
         URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();

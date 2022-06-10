@@ -1,6 +1,8 @@
 package br.com.alura.forum.modelo;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +13,10 @@ public class Topico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull @NotEmpty
     private String titulo;
+    @NotNull @NotEmpty
     private String mensagem;
     private LocalDateTime dataCriacao = LocalDateTime.now();
     @Enumerated(EnumType.STRING)
