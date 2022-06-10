@@ -1,6 +1,7 @@
 package br.com.alura.forum.controller;
 
 import br.com.alura.forum.dto.TopicoDTO;
+import br.com.alura.forum.form.AtualizacaoTopico;
 import br.com.alura.forum.form.TopicoForm;
 import br.com.alura.forum.modelo.Topico;
 import br.com.alura.forum.repository.CursoRepository;
@@ -44,6 +45,15 @@ public class TopicosController {
     public TopicoDTO detalhar(@PathVariable Long id) {
         Topico topico = topicoRepository.getOne(id);
         return new TopicoDTO(topico);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TopicoDTO> atualizar(@PathVariable Long id,
+                                               @RequestBody @Valid AtualizacaoTopico form) {
+        Topico topico = form.atualizar(id, topicoRepository);
+        return ResponseEntity.ok(new TopicoDTO(topico));
+
+
     }
 
 
