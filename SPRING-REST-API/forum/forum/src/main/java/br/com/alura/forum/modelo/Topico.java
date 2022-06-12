@@ -14,10 +14,9 @@ public class Topico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull @NotEmpty
     private String titulo;
-    @NotNull @NotEmpty
     private String mensagem;
+    private String nomeCurso;
     private LocalDateTime dataCriacao = LocalDateTime.now();
     @Enumerated(EnumType.STRING)
     private StatusTopico status = StatusTopico.NAO_RESPONDIDO;

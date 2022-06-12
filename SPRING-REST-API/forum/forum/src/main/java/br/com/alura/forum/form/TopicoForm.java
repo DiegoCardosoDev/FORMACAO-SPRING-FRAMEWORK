@@ -18,12 +18,10 @@ public class TopicoForm {
     @NotNull
     @NotEmpty
     @Length(min = 5)
-
     private String titulo;
     @NotNull
     @NotEmpty
     @Length(min = 5)
-
     private String mensagem;
     private String nomeCurso;
 
